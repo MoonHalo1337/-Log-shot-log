@@ -1,8 +1,11 @@
-UI.AddSubTab(["Visuals", "SUBTAB_MGR"], "Kiana's AimbotLog")
-var path = ["Visuals", "Kiana's AimbotLog", "Kiana's AimbotLog"];
+UI.AddSubTab(["Visuals", "SUBTAB_MGR"], "Script by sirin1337")
+var path = ["Visuals", "Script by sirin1337", "Script by sirin1337"];
 UI.AddCheckbox(path, "Fire log" );
 UI.AddCheckbox(path, "Damage log" );
+UI.AddCheckbox(path, "Advanced Damage log" );
+UI.AddCheckbox(path, "damage dealt" );
 UI.AddCheckbox(path, "Miss log" );
+UI.AddCheckbox(path, "Advanced Miss log" );
 UI.AddCheckbox(path, "Saying log" );
 
 hitboxes = [
@@ -16,7 +19,7 @@ hitboxes = [
     'right leg',
     'neck'
 ];
-var scriptitems = ( ["Visuals", "Kiana's AimbotLog", "Kiana's AimbotLog"]);
+var scriptitems = ( ["Visuals", "Script by sirin1337", "Script by sirin1337"]);
 var shots = 0;
 var misses = 0;
 var predicthc = 0;
@@ -122,7 +125,7 @@ function ragebot_fire() {
   lastUpdate = Globals.Curtime();
     target_damage = Event.GetInt("dmg_health");
 
-        if (UI.GetValue(["Visuals", "Kiana's AimbotLog", "Kiana's AimbotLog", "Fire log"])) {
+        if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "Fire log"])) {
       if (target) {
        Cheat.PrintLog("[Bronyaware] 休伯利安号主炮充能完毕 开始射击 " + Entity.GetName(target) + ", 目标: " + hitboxName + "  伤害: " +Ragebot.GetTarget() + "  命中概率: " + Ragebot.GetTargetHitchance( ) + "  bt: 0 (0 tks)  hp: false" + "\n",[147, 112, 219,255])
 }
@@ -205,36 +208,62 @@ n4m3 = Entity.GetName(Entity.GetEntityFromUserID(Event.GetInt("userid")))
         n4m3 = "?";
 
 
+log = flags
+
+    fakelag = UI.GetValue(["Rage", "Fake Lag", "Fake Lag", "Limit"] );
+    onshot = UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] );
+if (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 1) 
+onshot = "turn"
+  else if  (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 0) 
+onshot = "false"
+el1 = ""
+  if (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 1) 
+el1 = "hs" 
+  else if (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 0) 
+el1 = "" 
+el2 = ""
+  if (UI.GetValue(["Rage", "Exploits", "General", "Double tap"] ) == 1 & UI.GetValue(["Rage", "Exploits", "Keys", "Double tap"]) ) 
+el2 = "dt" 
+  else if (UI.GetValue(["Rage", "Exploits", "General", "Double tap"] ) == 0 & !UI.GetValue(["Rage", "Exploits", "Keys", "Double tap"]) ) 
+el2 = "" 
+
+ep = ""
+  if (!UI.GetValue(["Rage", "Exploits", "Keys", "Double tap"]) & !UI.GetValue(["Rage", "Exploits", "Keys", "Hide shots"])) 
+ep= "No"
+else if (UI.GetValue(["Rage", "Anti Aim", "General", "Key assignment","Fake duck"] ) == 1) 
+ep = ""
+else if (UI.GetValue(["Rage", "Exploits", "General", "Double tap"] ) == 1 & UI.GetValue(["Rage", "Exploits", "Keys", "Double tap"])) 
+ep = ""
+else if (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 1 & UI.GetValue(["Rage", "Exploits", "Keys", "Hide shots"])) 
+ep = ""
 
 
-    if (weapon == "hegrenade")
-      hittype = "";
-    else if (weapon == "inferno")
-      hittype = "";
-    else if (weapon == "knife")
-      hittype = "";
-    else if (weapon == "sawedoff")
-      hittype = "";
-    else if (weapon == "xm1014")
-      hittype = "";
-    else if (weapon == "nova")
-      hittype = "";
-    else if (weapon == "mag7")
-      hittype = "";
+
+
+
+
+
+
+            const me = Entity.GetLocalPlayer();
+            const on_ground = Entity.GetProp(me, "CBasePlayer", "m_fFlags") & 1;
+            const vec = Entity.GetProp(me, "CBasePlayer", "m_vecVelocity[0]");
+            const vel = Math.sqrt(vec[0] ** 2 + vec[1] ** 2 + vec[2] ** 2);
+
+
 
     if (me == attackerIndex && me != victimIndex) {1
 
     if (hittype == "Hit ") {
-        if (UI.GetValue(["Visuals", "Kiana's AimbotLog", "Kiana's AimbotLog", "Damage log"])) {
+        if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "Damage log"])) {
         Cheat.PrintLog("[Bronyaware] 休伯利安号主炮命中目标! " +  n4m3 + ", 部位: " + HitgroupName(Event.GetInt("hitgroup")) + "  伤害: " + Event.GetInt("dmg_health") + "  剩余血量: " + Event.GetInt("health") + dead + "\n",[100, 149, 237,255])
-        Cheat.PrintLog("Hit " +  n4m3 + " in the " + HitgroupName(Event.GetInt("hitgroup")) + " for " + Event.GetInt("dmg_health") + " damage (" + Event.GetInt("health") + " health remaining)" + "\n",[255, 255, 255,255])
         }
-    }
-    else {
-        Cheat.PrintLog("[Bronyaware] 休伯利安号主炮命中目标! " +  n4m3 + ", 部位: " + HitgroupName(Event.GetInt("hitgroup")) + "  伤害: " + Event.GetInt("dmg_health") + "  剩余血量: " + Event.GetInt("health") + dead + "\n",[100, 149, 237,255])
-        Cheat.PrintLog("Hit " +  n4m3 + " in the " + HitgroupName(Event.GetInt("hitgroup")) + " for " + Event.GetInt("dmg_health") + " damage (" + Event.GetInt("health") + " health remaining)" + "\n",[255, 255, 255,255])
-    }
-
+            if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "damage dealt"])) {
+     Cheat.PrintLog("Hit " +  n4m3 + " in the " + HitgroupName(Event.GetInt("hitgroup")) + " for " + Event.GetInt("dmg_health") + " damage (" + Event.GetInt("health") + " health remaining)" + "\n",[255, 255, 255,255])
+        }
+            if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "Advanced Damage log"])) {
+        Cheat.PrintLog("logged "+hits+"th shot at " +  n4m3 + "'s " + HitgroupName(Event.GetInt("hitgroup")) + "[" + shots_fired+ "] ( hc : " + predicthc.toString() + " | log : " + log + " | fl : " + fakelag + " | dmg : " + Event.GetInt("dmg_health") + " | onshot : " + onshot + " [ exploits : " + el1+el2 +ep +" | vel : " + vel + "] )" + "\n",[255, 255, 255,255])
+        }
+        }
         logsct.push(Globals.Curtime());
         logsalpha.push(255);
     }
@@ -302,6 +331,13 @@ function onDraw() {
         else if (safety1 == true && predicthc >= 75)
             reason = "解析器";
 
+        var ereason = "?";
+
+        if (safety1 == true && predicthc <= 82)
+            ereason = "spread";
+        else if (safety1 == true && predicthc >= 83)
+            ereason = "?";
+
 
         var flags = "";
        
@@ -313,6 +349,14 @@ function onDraw() {
     target_damage = Event.GetInt("dmg_health");
         if (Event.GetInt("dmg_health") == undefined)
 target_damage = "0"
+log = flags
+
+    fakelag = UI.GetValue(["Rage", "Fake Lag", "Fake Lag", "Limit"] );
+    onshot = UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] );
+if (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 1) 
+onshot = "turn"
+  else if  (UI.GetValue(["Rage", "Exploits", "General", "Hide shots"] ) == 0) 
+onshot = "false"
 
 n4me = Entity.GetName(target)
       if (Entity.GetName(target) == "   " ) 
@@ -359,12 +403,15 @@ misslog = misses
 
 
 
-            if (UI.GetValue(["Visuals", "Kiana's AimbotLog", "Kiana's AimbotLog", "Miss log"])) {
+            if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "Miss log"])) {
         Cheat.PrintLog("[Bronyaware] 休伯利安号主炮未命中目标... " + n4me + "，目标 " + hitboxName + "  原因 " + reason  + "\n",[255, 253, 166,255])
         }
 
-    if (UI.GetValue(["Visuals", "Kiana's AimbotLog", "Kiana's AimbotLog", "Saying log"])) {
+    if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "Saying log"])) {
         Cheat.PrintLog(misslog + "\n",[255, 255, 255,255])
+        }
+    if (UI.GetValue(["Visuals", "Script by sirin1337", "Script by sirin1337", "Advanced Miss log"])) {
+       Cheat.PrintLog("missed " +  n4me + "'s " + hitboxName + "[" + shots_fired+ "] due to " + ereason + " ( hc : " + predicthc.toString() + " | log : " + log + " | fl : " + fakelag + " | onshot : " + onshot + "] )" + "\n",[255, 255, 255,255])
         }
 
         logsct.push(Globals.Curtime());
